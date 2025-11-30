@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model Films
+ * 
+ */
+export type Films = $Result.DefaultSelection<Prisma.$FilmsPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -146,6 +151,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.films`: Exposes CRUD operations for the **Films** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Films
+    * const films = await prisma.films.findMany()
+    * ```
+    */
+  get films(): Prisma.FilmsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -587,7 +602,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User'
+    User: 'User',
+    Films: 'Films'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -606,7 +622,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user"
+      modelProps: "user" | "films"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -681,6 +697,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Films: {
+        payload: Prisma.$FilmsPayload<ExtArgs>
+        fields: Prisma.FilmsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FilmsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FilmsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FilmsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FilmsPayload>
+          }
+          findFirst: {
+            args: Prisma.FilmsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FilmsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FilmsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FilmsPayload>
+          }
+          findMany: {
+            args: Prisma.FilmsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FilmsPayload>[]
+          }
+          create: {
+            args: Prisma.FilmsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FilmsPayload>
+          }
+          createMany: {
+            args: Prisma.FilmsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FilmsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FilmsPayload>[]
+          }
+          delete: {
+            args: Prisma.FilmsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FilmsPayload>
+          }
+          update: {
+            args: Prisma.FilmsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FilmsPayload>
+          }
+          deleteMany: {
+            args: Prisma.FilmsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FilmsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FilmsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FilmsPayload>[]
+          }
+          upsert: {
+            args: Prisma.FilmsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FilmsPayload>
+          }
+          aggregate: {
+            args: Prisma.FilmsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFilms>
+          }
+          groupBy: {
+            args: Prisma.FilmsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FilmsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FilmsCountArgs<ExtArgs>
+            result: $Utils.Optional<FilmsCountAggregateOutputType> | number
           }
         }
       }
@@ -781,6 +871,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    films?: FilmsOmit
   }
 
   /* Types for Logging */
@@ -1870,6 +1961,1039 @@ export namespace Prisma {
 
 
   /**
+   * Model Films
+   */
+
+  export type AggregateFilms = {
+    _count: FilmsCountAggregateOutputType | null
+    _avg: FilmsAvgAggregateOutputType | null
+    _sum: FilmsSumAggregateOutputType | null
+    _min: FilmsMinAggregateOutputType | null
+    _max: FilmsMaxAggregateOutputType | null
+  }
+
+  export type FilmsAvgAggregateOutputType = {
+    year: number | null
+    rating: number | null
+  }
+
+  export type FilmsSumAggregateOutputType = {
+    year: number | null
+    rating: number | null
+  }
+
+  export type FilmsMinAggregateOutputType = {
+    id: string | null
+    filmName: string | null
+    dateRelease: string | null
+    year: number | null
+    rating: number | null
+  }
+
+  export type FilmsMaxAggregateOutputType = {
+    id: string | null
+    filmName: string | null
+    dateRelease: string | null
+    year: number | null
+    rating: number | null
+  }
+
+  export type FilmsCountAggregateOutputType = {
+    id: number
+    filmName: number
+    dateRelease: number
+    year: number
+    rating: number
+    _all: number
+  }
+
+
+  export type FilmsAvgAggregateInputType = {
+    year?: true
+    rating?: true
+  }
+
+  export type FilmsSumAggregateInputType = {
+    year?: true
+    rating?: true
+  }
+
+  export type FilmsMinAggregateInputType = {
+    id?: true
+    filmName?: true
+    dateRelease?: true
+    year?: true
+    rating?: true
+  }
+
+  export type FilmsMaxAggregateInputType = {
+    id?: true
+    filmName?: true
+    dateRelease?: true
+    year?: true
+    rating?: true
+  }
+
+  export type FilmsCountAggregateInputType = {
+    id?: true
+    filmName?: true
+    dateRelease?: true
+    year?: true
+    rating?: true
+    _all?: true
+  }
+
+  export type FilmsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Films to aggregate.
+     */
+    where?: FilmsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Films to fetch.
+     */
+    orderBy?: FilmsOrderByWithRelationInput | FilmsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FilmsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Films from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Films.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Films
+    **/
+    _count?: true | FilmsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FilmsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FilmsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FilmsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FilmsMaxAggregateInputType
+  }
+
+  export type GetFilmsAggregateType<T extends FilmsAggregateArgs> = {
+        [P in keyof T & keyof AggregateFilms]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFilms[P]>
+      : GetScalarType<T[P], AggregateFilms[P]>
+  }
+
+
+
+
+  export type FilmsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FilmsWhereInput
+    orderBy?: FilmsOrderByWithAggregationInput | FilmsOrderByWithAggregationInput[]
+    by: FilmsScalarFieldEnum[] | FilmsScalarFieldEnum
+    having?: FilmsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FilmsCountAggregateInputType | true
+    _avg?: FilmsAvgAggregateInputType
+    _sum?: FilmsSumAggregateInputType
+    _min?: FilmsMinAggregateInputType
+    _max?: FilmsMaxAggregateInputType
+  }
+
+  export type FilmsGroupByOutputType = {
+    id: string
+    filmName: string
+    dateRelease: string
+    year: number
+    rating: number
+    _count: FilmsCountAggregateOutputType | null
+    _avg: FilmsAvgAggregateOutputType | null
+    _sum: FilmsSumAggregateOutputType | null
+    _min: FilmsMinAggregateOutputType | null
+    _max: FilmsMaxAggregateOutputType | null
+  }
+
+  type GetFilmsGroupByPayload<T extends FilmsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FilmsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FilmsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FilmsGroupByOutputType[P]>
+            : GetScalarType<T[P], FilmsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FilmsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    filmName?: boolean
+    dateRelease?: boolean
+    year?: boolean
+    rating?: boolean
+  }, ExtArgs["result"]["films"]>
+
+  export type FilmsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    filmName?: boolean
+    dateRelease?: boolean
+    year?: boolean
+    rating?: boolean
+  }, ExtArgs["result"]["films"]>
+
+  export type FilmsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    filmName?: boolean
+    dateRelease?: boolean
+    year?: boolean
+    rating?: boolean
+  }, ExtArgs["result"]["films"]>
+
+  export type FilmsSelectScalar = {
+    id?: boolean
+    filmName?: boolean
+    dateRelease?: boolean
+    year?: boolean
+    rating?: boolean
+  }
+
+  export type FilmsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "filmName" | "dateRelease" | "year" | "rating", ExtArgs["result"]["films"]>
+
+  export type $FilmsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Films"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      filmName: string
+      dateRelease: string
+      year: number
+      rating: number
+    }, ExtArgs["result"]["films"]>
+    composites: {}
+  }
+
+  type FilmsGetPayload<S extends boolean | null | undefined | FilmsDefaultArgs> = $Result.GetResult<Prisma.$FilmsPayload, S>
+
+  type FilmsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FilmsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FilmsCountAggregateInputType | true
+    }
+
+  export interface FilmsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Films'], meta: { name: 'Films' } }
+    /**
+     * Find zero or one Films that matches the filter.
+     * @param {FilmsFindUniqueArgs} args - Arguments to find a Films
+     * @example
+     * // Get one Films
+     * const films = await prisma.films.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FilmsFindUniqueArgs>(args: SelectSubset<T, FilmsFindUniqueArgs<ExtArgs>>): Prisma__FilmsClient<$Result.GetResult<Prisma.$FilmsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Films that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FilmsFindUniqueOrThrowArgs} args - Arguments to find a Films
+     * @example
+     * // Get one Films
+     * const films = await prisma.films.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FilmsFindUniqueOrThrowArgs>(args: SelectSubset<T, FilmsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FilmsClient<$Result.GetResult<Prisma.$FilmsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Films that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FilmsFindFirstArgs} args - Arguments to find a Films
+     * @example
+     * // Get one Films
+     * const films = await prisma.films.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FilmsFindFirstArgs>(args?: SelectSubset<T, FilmsFindFirstArgs<ExtArgs>>): Prisma__FilmsClient<$Result.GetResult<Prisma.$FilmsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Films that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FilmsFindFirstOrThrowArgs} args - Arguments to find a Films
+     * @example
+     * // Get one Films
+     * const films = await prisma.films.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FilmsFindFirstOrThrowArgs>(args?: SelectSubset<T, FilmsFindFirstOrThrowArgs<ExtArgs>>): Prisma__FilmsClient<$Result.GetResult<Prisma.$FilmsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Films that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FilmsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Films
+     * const films = await prisma.films.findMany()
+     * 
+     * // Get first 10 Films
+     * const films = await prisma.films.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const filmsWithIdOnly = await prisma.films.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FilmsFindManyArgs>(args?: SelectSubset<T, FilmsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilmsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Films.
+     * @param {FilmsCreateArgs} args - Arguments to create a Films.
+     * @example
+     * // Create one Films
+     * const Films = await prisma.films.create({
+     *   data: {
+     *     // ... data to create a Films
+     *   }
+     * })
+     * 
+     */
+    create<T extends FilmsCreateArgs>(args: SelectSubset<T, FilmsCreateArgs<ExtArgs>>): Prisma__FilmsClient<$Result.GetResult<Prisma.$FilmsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Films.
+     * @param {FilmsCreateManyArgs} args - Arguments to create many Films.
+     * @example
+     * // Create many Films
+     * const films = await prisma.films.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FilmsCreateManyArgs>(args?: SelectSubset<T, FilmsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Films and returns the data saved in the database.
+     * @param {FilmsCreateManyAndReturnArgs} args - Arguments to create many Films.
+     * @example
+     * // Create many Films
+     * const films = await prisma.films.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Films and only return the `id`
+     * const filmsWithIdOnly = await prisma.films.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FilmsCreateManyAndReturnArgs>(args?: SelectSubset<T, FilmsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilmsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Films.
+     * @param {FilmsDeleteArgs} args - Arguments to delete one Films.
+     * @example
+     * // Delete one Films
+     * const Films = await prisma.films.delete({
+     *   where: {
+     *     // ... filter to delete one Films
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FilmsDeleteArgs>(args: SelectSubset<T, FilmsDeleteArgs<ExtArgs>>): Prisma__FilmsClient<$Result.GetResult<Prisma.$FilmsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Films.
+     * @param {FilmsUpdateArgs} args - Arguments to update one Films.
+     * @example
+     * // Update one Films
+     * const films = await prisma.films.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FilmsUpdateArgs>(args: SelectSubset<T, FilmsUpdateArgs<ExtArgs>>): Prisma__FilmsClient<$Result.GetResult<Prisma.$FilmsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Films.
+     * @param {FilmsDeleteManyArgs} args - Arguments to filter Films to delete.
+     * @example
+     * // Delete a few Films
+     * const { count } = await prisma.films.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FilmsDeleteManyArgs>(args?: SelectSubset<T, FilmsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Films.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FilmsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Films
+     * const films = await prisma.films.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FilmsUpdateManyArgs>(args: SelectSubset<T, FilmsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Films and returns the data updated in the database.
+     * @param {FilmsUpdateManyAndReturnArgs} args - Arguments to update many Films.
+     * @example
+     * // Update many Films
+     * const films = await prisma.films.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Films and only return the `id`
+     * const filmsWithIdOnly = await prisma.films.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FilmsUpdateManyAndReturnArgs>(args: SelectSubset<T, FilmsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilmsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Films.
+     * @param {FilmsUpsertArgs} args - Arguments to update or create a Films.
+     * @example
+     * // Update or create a Films
+     * const films = await prisma.films.upsert({
+     *   create: {
+     *     // ... data to create a Films
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Films we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FilmsUpsertArgs>(args: SelectSubset<T, FilmsUpsertArgs<ExtArgs>>): Prisma__FilmsClient<$Result.GetResult<Prisma.$FilmsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Films.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FilmsCountArgs} args - Arguments to filter Films to count.
+     * @example
+     * // Count the number of Films
+     * const count = await prisma.films.count({
+     *   where: {
+     *     // ... the filter for the Films we want to count
+     *   }
+     * })
+    **/
+    count<T extends FilmsCountArgs>(
+      args?: Subset<T, FilmsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FilmsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Films.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FilmsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FilmsAggregateArgs>(args: Subset<T, FilmsAggregateArgs>): Prisma.PrismaPromise<GetFilmsAggregateType<T>>
+
+    /**
+     * Group by Films.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FilmsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FilmsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FilmsGroupByArgs['orderBy'] }
+        : { orderBy?: FilmsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FilmsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFilmsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Films model
+   */
+  readonly fields: FilmsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Films.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FilmsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Films model
+   */
+  interface FilmsFieldRefs {
+    readonly id: FieldRef<"Films", 'String'>
+    readonly filmName: FieldRef<"Films", 'String'>
+    readonly dateRelease: FieldRef<"Films", 'String'>
+    readonly year: FieldRef<"Films", 'Int'>
+    readonly rating: FieldRef<"Films", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Films findUnique
+   */
+  export type FilmsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Films
+     */
+    select?: FilmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Films
+     */
+    omit?: FilmsOmit<ExtArgs> | null
+    /**
+     * Filter, which Films to fetch.
+     */
+    where: FilmsWhereUniqueInput
+  }
+
+  /**
+   * Films findUniqueOrThrow
+   */
+  export type FilmsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Films
+     */
+    select?: FilmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Films
+     */
+    omit?: FilmsOmit<ExtArgs> | null
+    /**
+     * Filter, which Films to fetch.
+     */
+    where: FilmsWhereUniqueInput
+  }
+
+  /**
+   * Films findFirst
+   */
+  export type FilmsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Films
+     */
+    select?: FilmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Films
+     */
+    omit?: FilmsOmit<ExtArgs> | null
+    /**
+     * Filter, which Films to fetch.
+     */
+    where?: FilmsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Films to fetch.
+     */
+    orderBy?: FilmsOrderByWithRelationInput | FilmsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Films.
+     */
+    cursor?: FilmsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Films from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Films.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Films.
+     */
+    distinct?: FilmsScalarFieldEnum | FilmsScalarFieldEnum[]
+  }
+
+  /**
+   * Films findFirstOrThrow
+   */
+  export type FilmsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Films
+     */
+    select?: FilmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Films
+     */
+    omit?: FilmsOmit<ExtArgs> | null
+    /**
+     * Filter, which Films to fetch.
+     */
+    where?: FilmsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Films to fetch.
+     */
+    orderBy?: FilmsOrderByWithRelationInput | FilmsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Films.
+     */
+    cursor?: FilmsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Films from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Films.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Films.
+     */
+    distinct?: FilmsScalarFieldEnum | FilmsScalarFieldEnum[]
+  }
+
+  /**
+   * Films findMany
+   */
+  export type FilmsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Films
+     */
+    select?: FilmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Films
+     */
+    omit?: FilmsOmit<ExtArgs> | null
+    /**
+     * Filter, which Films to fetch.
+     */
+    where?: FilmsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Films to fetch.
+     */
+    orderBy?: FilmsOrderByWithRelationInput | FilmsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Films.
+     */
+    cursor?: FilmsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Films from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Films.
+     */
+    skip?: number
+    distinct?: FilmsScalarFieldEnum | FilmsScalarFieldEnum[]
+  }
+
+  /**
+   * Films create
+   */
+  export type FilmsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Films
+     */
+    select?: FilmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Films
+     */
+    omit?: FilmsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Films.
+     */
+    data: XOR<FilmsCreateInput, FilmsUncheckedCreateInput>
+  }
+
+  /**
+   * Films createMany
+   */
+  export type FilmsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Films.
+     */
+    data: FilmsCreateManyInput | FilmsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Films createManyAndReturn
+   */
+  export type FilmsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Films
+     */
+    select?: FilmsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Films
+     */
+    omit?: FilmsOmit<ExtArgs> | null
+    /**
+     * The data used to create many Films.
+     */
+    data: FilmsCreateManyInput | FilmsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Films update
+   */
+  export type FilmsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Films
+     */
+    select?: FilmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Films
+     */
+    omit?: FilmsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Films.
+     */
+    data: XOR<FilmsUpdateInput, FilmsUncheckedUpdateInput>
+    /**
+     * Choose, which Films to update.
+     */
+    where: FilmsWhereUniqueInput
+  }
+
+  /**
+   * Films updateMany
+   */
+  export type FilmsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Films.
+     */
+    data: XOR<FilmsUpdateManyMutationInput, FilmsUncheckedUpdateManyInput>
+    /**
+     * Filter which Films to update
+     */
+    where?: FilmsWhereInput
+    /**
+     * Limit how many Films to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Films updateManyAndReturn
+   */
+  export type FilmsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Films
+     */
+    select?: FilmsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Films
+     */
+    omit?: FilmsOmit<ExtArgs> | null
+    /**
+     * The data used to update Films.
+     */
+    data: XOR<FilmsUpdateManyMutationInput, FilmsUncheckedUpdateManyInput>
+    /**
+     * Filter which Films to update
+     */
+    where?: FilmsWhereInput
+    /**
+     * Limit how many Films to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Films upsert
+   */
+  export type FilmsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Films
+     */
+    select?: FilmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Films
+     */
+    omit?: FilmsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Films to update in case it exists.
+     */
+    where: FilmsWhereUniqueInput
+    /**
+     * In case the Films found by the `where` argument doesn't exist, create a new Films with this data.
+     */
+    create: XOR<FilmsCreateInput, FilmsUncheckedCreateInput>
+    /**
+     * In case the Films was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FilmsUpdateInput, FilmsUncheckedUpdateInput>
+  }
+
+  /**
+   * Films delete
+   */
+  export type FilmsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Films
+     */
+    select?: FilmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Films
+     */
+    omit?: FilmsOmit<ExtArgs> | null
+    /**
+     * Filter which Films to delete.
+     */
+    where: FilmsWhereUniqueInput
+  }
+
+  /**
+   * Films deleteMany
+   */
+  export type FilmsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Films to delete
+     */
+    where?: FilmsWhereInput
+    /**
+     * Limit how many Films to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Films without action
+   */
+  export type FilmsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Films
+     */
+    select?: FilmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Films
+     */
+    omit?: FilmsOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -1893,6 +3017,17 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const FilmsScalarFieldEnum: {
+    id: 'id',
+    filmName: 'filmName',
+    dateRelease: 'dateRelease',
+    year: 'year',
+    rating: 'rating'
+  };
+
+  export type FilmsScalarFieldEnum = (typeof FilmsScalarFieldEnum)[keyof typeof FilmsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -1964,6 +3099,20 @@ export namespace Prisma {
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
   /**
    * Deep Input Types
    */
@@ -2024,6 +3173,60 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type FilmsWhereInput = {
+    AND?: FilmsWhereInput | FilmsWhereInput[]
+    OR?: FilmsWhereInput[]
+    NOT?: FilmsWhereInput | FilmsWhereInput[]
+    id?: StringFilter<"Films"> | string
+    filmName?: StringFilter<"Films"> | string
+    dateRelease?: StringFilter<"Films"> | string
+    year?: IntFilter<"Films"> | number
+    rating?: IntFilter<"Films"> | number
+  }
+
+  export type FilmsOrderByWithRelationInput = {
+    id?: SortOrder
+    filmName?: SortOrder
+    dateRelease?: SortOrder
+    year?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type FilmsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    filmName?: string
+    AND?: FilmsWhereInput | FilmsWhereInput[]
+    OR?: FilmsWhereInput[]
+    NOT?: FilmsWhereInput | FilmsWhereInput[]
+    dateRelease?: StringFilter<"Films"> | string
+    year?: IntFilter<"Films"> | number
+    rating?: IntFilter<"Films"> | number
+  }, "id" | "filmName">
+
+  export type FilmsOrderByWithAggregationInput = {
+    id?: SortOrder
+    filmName?: SortOrder
+    dateRelease?: SortOrder
+    year?: SortOrder
+    rating?: SortOrder
+    _count?: FilmsCountOrderByAggregateInput
+    _avg?: FilmsAvgOrderByAggregateInput
+    _max?: FilmsMaxOrderByAggregateInput
+    _min?: FilmsMinOrderByAggregateInput
+    _sum?: FilmsSumOrderByAggregateInput
+  }
+
+  export type FilmsScalarWhereWithAggregatesInput = {
+    AND?: FilmsScalarWhereWithAggregatesInput | FilmsScalarWhereWithAggregatesInput[]
+    OR?: FilmsScalarWhereWithAggregatesInput[]
+    NOT?: FilmsScalarWhereWithAggregatesInput | FilmsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Films"> | string
+    filmName?: StringWithAggregatesFilter<"Films"> | string
+    dateRelease?: StringWithAggregatesFilter<"Films"> | string
+    year?: IntWithAggregatesFilter<"Films"> | number
+    rating?: IntWithAggregatesFilter<"Films"> | number
   }
 
   export type UserCreateInput = {
@@ -2087,6 +3290,62 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FilmsCreateInput = {
+    id?: string
+    filmName: string
+    dateRelease: string
+    year: number
+    rating: number
+  }
+
+  export type FilmsUncheckedCreateInput = {
+    id?: string
+    filmName: string
+    dateRelease: string
+    year: number
+    rating: number
+  }
+
+  export type FilmsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    filmName?: StringFieldUpdateOperationsInput | string
+    dateRelease?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FilmsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    filmName?: StringFieldUpdateOperationsInput | string
+    dateRelease?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FilmsCreateManyInput = {
+    id?: string
+    filmName: string
+    dateRelease: string
+    year: number
+    rating: number
+  }
+
+  export type FilmsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    filmName?: StringFieldUpdateOperationsInput | string
+    dateRelease?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FilmsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    filmName?: StringFieldUpdateOperationsInput | string
+    dateRelease?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2212,6 +3471,67 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type FilmsCountOrderByAggregateInput = {
+    id?: SortOrder
+    filmName?: SortOrder
+    dateRelease?: SortOrder
+    year?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type FilmsAvgOrderByAggregateInput = {
+    year?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type FilmsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    filmName?: SortOrder
+    dateRelease?: SortOrder
+    year?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type FilmsMinOrderByAggregateInput = {
+    id?: SortOrder
+    filmName?: SortOrder
+    dateRelease?: SortOrder
+    year?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type FilmsSumOrderByAggregateInput = {
+    year?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -2222,6 +3542,14 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -2331,6 +3659,33 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
 
