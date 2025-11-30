@@ -135,7 +135,8 @@ exports.Prisma.FilmsScalarFieldEnum = {
   filmName: 'filmName',
   dateRelease: 'dateRelease',
   year: 'year',
-  rating: 'rating'
+  rating: 'rating',
+  image: 'image'
 };
 
 exports.Prisma.SortOrder = {

@@ -1988,6 +1988,7 @@ export namespace Prisma {
     dateRelease: string | null
     year: number | null
     rating: number | null
+    image: string | null
   }
 
   export type FilmsMaxAggregateOutputType = {
@@ -1996,6 +1997,7 @@ export namespace Prisma {
     dateRelease: string | null
     year: number | null
     rating: number | null
+    image: string | null
   }
 
   export type FilmsCountAggregateOutputType = {
@@ -2004,6 +2006,7 @@ export namespace Prisma {
     dateRelease: number
     year: number
     rating: number
+    image: number
     _all: number
   }
 
@@ -2024,6 +2027,7 @@ export namespace Prisma {
     dateRelease?: true
     year?: true
     rating?: true
+    image?: true
   }
 
   export type FilmsMaxAggregateInputType = {
@@ -2032,6 +2036,7 @@ export namespace Prisma {
     dateRelease?: true
     year?: true
     rating?: true
+    image?: true
   }
 
   export type FilmsCountAggregateInputType = {
@@ -2040,6 +2045,7 @@ export namespace Prisma {
     dateRelease?: true
     year?: true
     rating?: true
+    image?: true
     _all?: true
   }
 
@@ -2135,6 +2141,7 @@ export namespace Prisma {
     dateRelease: string
     year: number
     rating: number
+    image: string | null
     _count: FilmsCountAggregateOutputType | null
     _avg: FilmsAvgAggregateOutputType | null
     _sum: FilmsSumAggregateOutputType | null
@@ -2162,6 +2169,7 @@ export namespace Prisma {
     dateRelease?: boolean
     year?: boolean
     rating?: boolean
+    image?: boolean
   }, ExtArgs["result"]["films"]>
 
   export type FilmsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2170,6 +2178,7 @@ export namespace Prisma {
     dateRelease?: boolean
     year?: boolean
     rating?: boolean
+    image?: boolean
   }, ExtArgs["result"]["films"]>
 
   export type FilmsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2178,6 +2187,7 @@ export namespace Prisma {
     dateRelease?: boolean
     year?: boolean
     rating?: boolean
+    image?: boolean
   }, ExtArgs["result"]["films"]>
 
   export type FilmsSelectScalar = {
@@ -2186,9 +2196,10 @@ export namespace Prisma {
     dateRelease?: boolean
     year?: boolean
     rating?: boolean
+    image?: boolean
   }
 
-  export type FilmsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "filmName" | "dateRelease" | "year" | "rating", ExtArgs["result"]["films"]>
+  export type FilmsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "filmName" | "dateRelease" | "year" | "rating" | "image", ExtArgs["result"]["films"]>
 
   export type $FilmsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Films"
@@ -2199,6 +2210,7 @@ export namespace Prisma {
       dateRelease: string
       year: number
       rating: number
+      image: string | null
     }, ExtArgs["result"]["films"]>
     composites: {}
   }
@@ -2627,6 +2639,7 @@ export namespace Prisma {
     readonly dateRelease: FieldRef<"Films", 'String'>
     readonly year: FieldRef<"Films", 'Int'>
     readonly rating: FieldRef<"Films", 'Int'>
+    readonly image: FieldRef<"Films", 'String'>
   }
     
 
@@ -3024,7 +3037,8 @@ export namespace Prisma {
     filmName: 'filmName',
     dateRelease: 'dateRelease',
     year: 'year',
-    rating: 'rating'
+    rating: 'rating',
+    image: 'image'
   };
 
   export type FilmsScalarFieldEnum = (typeof FilmsScalarFieldEnum)[keyof typeof FilmsScalarFieldEnum]
@@ -3184,6 +3198,7 @@ export namespace Prisma {
     dateRelease?: StringFilter<"Films"> | string
     year?: IntFilter<"Films"> | number
     rating?: IntFilter<"Films"> | number
+    image?: StringNullableFilter<"Films"> | string | null
   }
 
   export type FilmsOrderByWithRelationInput = {
@@ -3192,6 +3207,7 @@ export namespace Prisma {
     dateRelease?: SortOrder
     year?: SortOrder
     rating?: SortOrder
+    image?: SortOrderInput | SortOrder
   }
 
   export type FilmsWhereUniqueInput = Prisma.AtLeast<{
@@ -3203,6 +3219,7 @@ export namespace Prisma {
     dateRelease?: StringFilter<"Films"> | string
     year?: IntFilter<"Films"> | number
     rating?: IntFilter<"Films"> | number
+    image?: StringNullableFilter<"Films"> | string | null
   }, "id" | "filmName">
 
   export type FilmsOrderByWithAggregationInput = {
@@ -3211,6 +3228,7 @@ export namespace Prisma {
     dateRelease?: SortOrder
     year?: SortOrder
     rating?: SortOrder
+    image?: SortOrderInput | SortOrder
     _count?: FilmsCountOrderByAggregateInput
     _avg?: FilmsAvgOrderByAggregateInput
     _max?: FilmsMaxOrderByAggregateInput
@@ -3227,6 +3245,7 @@ export namespace Prisma {
     dateRelease?: StringWithAggregatesFilter<"Films"> | string
     year?: IntWithAggregatesFilter<"Films"> | number
     rating?: IntWithAggregatesFilter<"Films"> | number
+    image?: StringNullableWithAggregatesFilter<"Films"> | string | null
   }
 
   export type UserCreateInput = {
@@ -3298,6 +3317,7 @@ export namespace Prisma {
     dateRelease: string
     year: number
     rating: number
+    image?: string | null
   }
 
   export type FilmsUncheckedCreateInput = {
@@ -3306,6 +3326,7 @@ export namespace Prisma {
     dateRelease: string
     year: number
     rating: number
+    image?: string | null
   }
 
   export type FilmsUpdateInput = {
@@ -3314,6 +3335,7 @@ export namespace Prisma {
     dateRelease?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
     rating?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FilmsUncheckedUpdateInput = {
@@ -3322,6 +3344,7 @@ export namespace Prisma {
     dateRelease?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
     rating?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FilmsCreateManyInput = {
@@ -3330,6 +3353,7 @@ export namespace Prisma {
     dateRelease: string
     year: number
     rating: number
+    image?: string | null
   }
 
   export type FilmsUpdateManyMutationInput = {
@@ -3338,6 +3362,7 @@ export namespace Prisma {
     dateRelease?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
     rating?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FilmsUncheckedUpdateManyInput = {
@@ -3346,6 +3371,7 @@ export namespace Prisma {
     dateRelease?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
     rating?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3488,6 +3514,7 @@ export namespace Prisma {
     dateRelease?: SortOrder
     year?: SortOrder
     rating?: SortOrder
+    image?: SortOrder
   }
 
   export type FilmsAvgOrderByAggregateInput = {
@@ -3501,6 +3528,7 @@ export namespace Prisma {
     dateRelease?: SortOrder
     year?: SortOrder
     rating?: SortOrder
+    image?: SortOrder
   }
 
   export type FilmsMinOrderByAggregateInput = {
@@ -3509,6 +3537,7 @@ export namespace Prisma {
     dateRelease?: SortOrder
     year?: SortOrder
     rating?: SortOrder
+    image?: SortOrder
   }
 
   export type FilmsSumOrderByAggregateInput = {

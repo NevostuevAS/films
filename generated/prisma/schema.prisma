@@ -25,9 +25,10 @@ model User {
 }
 
 model Films {
-  id          String @id @default(cuid())
-  filmName    String @unique
+  id          String  @id @default(cuid())
+  filmName    String  @unique
   dateRelease String
   year        Int
   rating      Int
+  image       String?
 }

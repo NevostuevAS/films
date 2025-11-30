@@ -30,4 +30,5 @@ model Films {
     dateRelease String
     year Int
     rating Int
+    image String?
 }

@@ -2,6 +2,15 @@
 
 import { useState, useEffect } from 'react';
 
+interface Film {
+  id: string;
+  filmName: string;
+  dateRelease: string;
+  year: number;
+  rating: number;
+  image?: string;
+}
+
 export default function Home() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isAuth, setisAuth] = useState(false);
@@ -9,6 +18,35 @@ export default function Home() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [AuthUser, setAuthUser] = useState<{name: string; login: string} | null>(null);;
+  const [films, setFilms] = useState<Film[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+  const loadFilms = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const response = await fetch('/api/films');
+      
+      if (!response.ok) {
+        throw new Error('Ошибка загрузки фильмов');
+      }
+      
+      const data = await response.json();
+      setFilms(data.films);
+      
+    } catch (err) {
+      setError('Не удалось загрузить фильмы');
+      console.error('Ошибка:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  loadFilms();
+  }, []);
   
   ///////Сохранение пользователя
   useEffect(() => {
@@ -100,6 +138,7 @@ export default function Home() {
  }
   if (AuthUser) {
     return (
+      <div>
       <div className="header">
       <h1>Онлайн каталог фильмов</h1>
     <button className="auth" onClick={() => {
@@ -108,15 +147,33 @@ export default function Home() {
     }
       }>Выйти</button>
     <button className="auth">{AuthUser.name}</button>
-    <p></p>
     </div>
+        {loading && <p>Загрузка фильмов...</p>}
+        {error && <p>Ошибка: {error}</p>}
+        {films.map(film => (
+          <div className="films" key={film.id}>
+            <img src={film.image} alt={film.filmName}></img>
+            <h3>{film.filmName}</h3>
+          </div>
+        ))}
+      </div>
   );
 }
   return (
+    <div>
     <div className="header">
       <h1>Онлайн каталог фильмов</h1>
       <button className="auth" onClick={() => setIsSignUp(true)}>Регистрация</button>
       <button className="auth" onClick={() => setisAuth(true)}>Авторизация</button>
-    </div>
+      </div>
+         {loading && <p>Загрузка фильмов...</p>}
+        {error && <p>Ошибка: {error}</p>}
+        {films.map(film => (
+          <div className="films" key={film.id}>
+            <img src={film.image} alt={film.filmName}></img>
+            <h3>{film.filmName}</h3>
+          </div>
+        ))}
+        </div>
   );
 }
