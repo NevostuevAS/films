@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isAuth, setisAuth] = useState(false);
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -12,7 +13,7 @@ export default function Home() {
   const handleRegister = async () => {
     try {
       const response = await fetch('/api/register', {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -51,11 +52,25 @@ export default function Home() {
       </div>
     );
   }
+ if (isAuth) {
+  return (
+    /////Форма авторизации///
+    <div>
+        <h1 className="header">Авторизация</h1>
 
+        {/* форма регистрации */}
+        <input className="inputauth" type = "text" value={login} onChange={(e) => setLogin(e.target.value)} placeholder="Логин"/>
+         <input className="inputauth" type = "text" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль"/>
+        <button className="back" onClick={handleRegister} >Войти</button>
+        <button className="back" onClick={() => setisAuth(false)}>Назад</button>
+      </div>
+    );
+ }
   return (
     <div className="header">
       <h1>Онлайн каталог фильмов</h1>
       <button className="auth" onClick={() => setIsSignUp(true)}>Регистрация</button>
+      <button className="auth" onClick={() => setisAuth(true)}>Авторизация</button>
     </div>
   );
 }
