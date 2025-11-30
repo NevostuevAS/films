@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -8,8 +8,16 @@ export default function Home() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [AuthUser, setAuthUser] = useState(false);
-
+  const [AuthUser, setAuthUser] = useState<{name: string; login: string} | null>(null);;
+  
+  ///////Сохранение пользователя
+  useEffect(() => {
+  const savedUser = localStorage.getItem('user');
+  if (savedUser) {
+    setAuthUser(JSON.parse(savedUser));
+  }
+}, []);
+///////////////
   const handleAuth = async () => {
    try{
     const response = await fetch('/api/auth', {
@@ -23,10 +31,12 @@ export default function Home() {
       const result = await response.json();
       if (response.ok) {
         alert('Авторизация успешна!');
+        localStorage.setItem('user', JSON.stringify(result.user)); ///Сохраняем пользователя
         // Очищаем форму
         setLogin('');
         setPassword('');
-        setAuthUser(true);
+        setisAuth(false);
+        setAuthUser(result.user);
       } else {
         alert(result.error || 'Ошибка авторизации');
       }
@@ -34,7 +44,7 @@ export default function Home() {
       alert('Ошибка сети');
     }
   };
-  const handleRegister = async () => {
+    const handleRegister = async () => {
     try {
       const response = await fetch('/api/register', {
         method: 'POST',
@@ -88,6 +98,20 @@ export default function Home() {
       </div>
     );
  }
+  if (AuthUser) {
+    return (
+      <div className="header">
+      <h1>Онлайн каталог фильмов</h1>
+    <button className="auth" onClick={() => {
+      setAuthUser(null)
+    localStorage.removeItem('user');  
+    }
+      }>Выйти</button>
+    <button className="auth">{AuthUser.name}</button>
+    <p></p>
+    </div>
+  );
+}
   return (
     <div className="header">
       <h1>Онлайн каталог фильмов</h1>
