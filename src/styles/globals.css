@@ -11,14 +11,22 @@ body {
   margin: 0;
   padding: 20px;
 }
+img{
+  height: 200px;
+  width: 150px;
+  object-fit: cover; 
+}
 .films{
-   width: 150px;
-  height: 240px;
+  display: flex;
   object-fit: cover;
   border-radius: 3px;
-  border: 10px solid black;
-  margin-top: 2%;
+  margin-top: 30px;
+  gap: 30px;
 
+}
+.filmName{
+  text-align: left;
+  color: #c3cfe2;
 }
 .inputauth{
   text-align: center;
@@ -36,9 +44,14 @@ body {
   display: block;
   padding: 10px;
 }
+h3{
+  
+}
 .auth{
   color: #81c3ee;
   padding-left: 2%;
+  font-size: 20px;
+  text-align: center;
 
 }
 .auth:hover {
@@ -61,86 +74,4 @@ body {
   margin: 0;
   background: none;
   display: block;
-}
-
-.form-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 30px;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.form-title {
-  text-align: center;
-  color: #2c3e50;
-  margin-bottom: 25px;
-  font-size: 1.5rem;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-label {
-  display: block;
-  color: #34495e;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-
-.form-input {
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #ecf0f1;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-.form-input:focus {
-  border-color: #4CAF50;
-  outline: none;
-}
-
-.submit-btn {
-  width: 100%;
-  padding: 12px;
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.submit-btn:hover {
-  background: #45a049;
-}
-
-.nav-container {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 30px;
-  flex-wrap: wrap;
-}
-
-.nav-btn {
-  padding: 12px 20px;
-  background: #3498db;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.nav-btn:hover {
-  background: #2980b9;
-  transform: translateY(-2px);
 }

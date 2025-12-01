@@ -44,7 +44,8 @@ export async function POST(request: Request) {
       user: {
         id: user.id,
         login: user.login,
-        name: user.name
+        name: user.name,
+        createdAt: user.createdAt
         // НЕ возвращаем пароль!
       }
     })

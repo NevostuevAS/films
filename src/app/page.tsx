@@ -21,6 +21,7 @@ export default function Home() {
   const [films, setFilms] = useState<Film[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [lk, setlk] = useState(false);
 
   useEffect(() => {
   const loadFilms = async () => {
@@ -56,6 +57,7 @@ export default function Home() {
   }
 }, []);
 ///////////////
+//////////Функция авторзиации
   const handleAuth = async () => {
    try{
     const response = await fetch('/api/auth', {
@@ -82,7 +84,8 @@ export default function Home() {
       alert('Ошибка сети');
     }
   };
-    const handleRegister = async () => {
+  ////////Функция регистрации  
+  const handleRegister = async () => {
     try {
       const response = await fetch('/api/register', {
         method: 'POST',
@@ -109,12 +112,11 @@ export default function Home() {
       alert('Ошибка сети');
     }
   };
+  /////////Форма регистрации////
   if (isSignUp) {
     return (
       <div>
         <h1 className="header">Регистрация</h1>
-
-        {/* форма регистрации */}
         <input className="inputauth" type = "text" value={login} onChange={(e) => setLogin(e.target.value)} placeholder="Логин"/>
          <input className="inputauth" type = "text" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль"/>
           <input className="inputauth" type = "text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Имя"/>
@@ -136,7 +138,22 @@ export default function Home() {
       </div>
     );
  }
-  if (AuthUser) {
+ //////Страница авторизованного пользователя 
+ if(lk) {
+  return (
+      <div>
+      <div className="header">
+      <h1>Онлайн каталог фильмов</h1>
+      <h3>Личный кабинет</h3>
+      <button className="back" onClick={() => setlk(false)}>Назад</button>
+      </div>
+      <h2></h2>
+      </div>
+  );
+ }
+ 
+ 
+ if (AuthUser) {
     return (
       <div>
       <div className="header">
@@ -146,20 +163,26 @@ export default function Home() {
     localStorage.removeItem('user');  
     }
       }>Выйти</button>
-    <button className="auth">{AuthUser.name}</button>
+    <button className="auth" onClick={() => setlk(true)}>{AuthUser.name}</button>
     </div>
-        {loading && <p>Загрузка фильмов...</p>}
+       {loading && <p>Загрузка фильмов...</p>}
         {error && <p>Ошибка: {error}</p>}
         {films.map(film => (
           <div className="films" key={film.id}>
+
             <img src={film.image} alt={film.filmName}></img>
-            <h3>{film.filmName}</h3>
+            <div className="filmName">
+              <h3>{film.filmName}</h3>
+              <h3>Дата выхода: {film.year} год</h3>
+              </div>
           </div>
         ))}
-      </div>
+        </div>
   );
 }
-  return (
+///////////////////////////////
+/////////Страница не авторизованного пользователя  
+return (
     <div>
     <div className="header">
       <h1>Онлайн каталог фильмов</h1>
@@ -170,10 +193,15 @@ export default function Home() {
         {error && <p>Ошибка: {error}</p>}
         {films.map(film => (
           <div className="films" key={film.id}>
+
             <img src={film.image} alt={film.filmName}></img>
-            <h3>{film.filmName}</h3>
+            <div className="filmName">
+              <h3>{film.filmName}</h3>
+              <h3>Дата выхода: {film.year} год</h3>
+              </div>
           </div>
         ))}
         </div>
   );
 }
+//////////////
