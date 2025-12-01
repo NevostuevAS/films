@@ -5,19 +5,16 @@ const prisma = new PrismaClient()
 
 export async function POST(request: Request) {
   try {
-    // 1. ПОЛУЧАЕМ ДАННЫЕ ИЗ ЗАПРОСА
     const { login, password } = await request.json()
     
     console.log('🔐 Попытка входа:', login)
 
-    // 2. ИЩЕМ ПОЛЬЗОВАТЕЛЯ В БАЗЕ ДАННЫХ
     const user = await prisma.user.findUnique({
       where: {
         login: login,  // ищем пользователя по логину
       },
     })
 
-    // 3. ЕСЛИ ПОЛЬЗОВАТЕЛЬ НЕ НАЙДЕН
     if (!user) {
       console.log('❌ Пользователь не найден')
       return NextResponse.json({ 
@@ -26,7 +23,6 @@ export async function POST(request: Request) {
       }, { status: 401 })
     }
 
-    // 4. ПРОВЕРЯЕМ ПАРОЛЬ
     if (user.password !== password) {
       console.log('❌ Неверный пароль')
       return NextResponse.json({ 
@@ -35,7 +31,6 @@ export async function POST(request: Request) {
       }, { status: 401 })
     }
 
-    // 5. ЕСЛИ ВСЁ ПРАВИЛЬНО - УСПЕШНЫЙ ВХОД
     console.log('✅ Успешный вход:', user.name)
     
     return NextResponse.json({ 
@@ -46,12 +41,10 @@ export async function POST(request: Request) {
         login: user.login,
         name: user.name,
         createdAt: user.createdAt
-        // НЕ возвращаем пароль!
       }
     })
     
   } catch (error) {
-    // 6. ЕСЛИ ПРОИЗОШЛА ОШИБКА
     console.error('❌ Ошибка сервера:', error)
     return NextResponse.json({ 
       success: false,

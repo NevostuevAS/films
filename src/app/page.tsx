@@ -11,17 +11,56 @@ interface Film {
   image?: string;
 }
 
+interface User {
+  id: string;
+  login: string;
+  name: string;
+  createdAt: string;
+}
+
 export default function Home() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isAuth, setisAuth] = useState(false);
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [AuthUser, setAuthUser] = useState<{name: string; login: string} | null>(null);;
+  const [AuthUser, setAuthUser] = useState<{
+  id: string;
+  name: string; 
+  login: string;
+  createdAt: string;
+  } | null>(null);
   const [films, setFilms] = useState<Film[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lk, setlk] = useState(false);
+  const [userData, setUserData] = useState<User | null>(null);
+  const [userCount, setUserCount] = useState<number | null>(null);
+  const [loadingCount, setLoadingCount] = useState(false);
+  const [selectedFilm, setSelectedFilm] = useState<Film | null>(null);
+
+ 
+
+  const loadUserCount = async () => { ///////Счетчик зарег. пользователей
+  try {
+    setLoadingCount(true);
+    const response = await fetch('/api/stats');
+    
+    if (response.ok) {
+      const data = await response.json();
+      setUserCount(data.count);
+    }
+  } catch (error) {
+    console.error('Ошибка загрузки количества пользователей:', error);
+  } finally {
+    setLoadingCount(false);
+  }
+};
+
+useEffect(() => {
+  loadUserCount();
+}, []);
+
 
   useEffect(() => {
   const loadFilms = async () => {
@@ -71,7 +110,12 @@ export default function Home() {
       const result = await response.json();
       if (response.ok) {
         alert('Авторизация успешна!');
-        localStorage.setItem('user', JSON.stringify(result.user)); ///Сохраняем пользователя
+        localStorage.setItem('user', JSON.stringify({
+        id: result.user.id,
+        name: result.user.name,
+        login: result.user.login,
+        createdAt: result.user.createdAt  // ← сохраняем дату
+        })); ///Сохраняем пользователя
         // Очищаем форму
         setLogin('');
         setPassword('');
@@ -138,16 +182,24 @@ export default function Home() {
       </div>
     );
  }
- //////Страница авторизованного пользователя 
- if(lk) {
+ //////Личный кабинет
+ if(lk && AuthUser) {
   return (
       <div>
       <div className="header">
-      <h1>Онлайн каталог фильмов</h1>
-      <h3>Личный кабинет</h3>
+      <h1>Личный кабинет</h1>
       <button className="back" onClick={() => setlk(false)}>Назад</button>
-      </div>
-      <h2></h2>
+          </div>
+    <div className="lkinfo">
+    <h1>Имя: {AuthUser.name}</h1>
+    <h1>Дата регистрации: {
+    new Date(AuthUser.createdAt).toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long', 
+    year: 'numeric'
+    })
+    }</h1>
+    </div>
       </div>
   );
  }
@@ -157,7 +209,7 @@ export default function Home() {
     return (
       <div>
       <div className="header">
-      <h1>Онлайн каталог фильмов</h1>
+      <h1>Фильмы онлайн</h1>
     <button className="auth" onClick={() => {
       setAuthUser(null)
     localStorage.removeItem('user');  
@@ -180,19 +232,41 @@ export default function Home() {
         </div>
   );
 }
+if (selectedFilm) {
+  return (
+    <div>
+      <div className="header">
+        <h1>Информация о фильме</h1>
+        <button className="back" onClick={() => setSelectedFilm(null)}>
+          Назад к списку
+        </button>
+      </div>
+      
+      <div className="film-detail-page">
+        <img src={selectedFilm.image} alt={selectedFilm.filmName} />
+        <h1>{selectedFilm.filmName}</h1>
+        <h3>Дата выхода: {selectedFilm.year} год</h3>
+        <h3>Рейтинг: {selectedFilm.rating}/10</h3>
+        <p>Дата релиза: {selectedFilm.dateRelease}</p>
+      </div>
+    </div>
+  );
+}
 ///////////////////////////////
 /////////Страница не авторизованного пользователя  
 return (
     <div>
     <div className="header">
-      <h1>Онлайн каталог фильмов</h1>
+      <h1>Фильмы онлайн</h1>
+     <div className="userstats">
+     </div>
       <button className="auth" onClick={() => setIsSignUp(true)}>Регистрация</button>
       <button className="auth" onClick={() => setisAuth(true)}>Авторизация</button>
       </div>
          {loading && <p>Загрузка фильмов...</p>}
         {error && <p>Ошибка: {error}</p>}
         {films.map(film => (
-          <div className="films" key={film.id}>
+          <div className="films" key={film.id} onClick={() => setSelectedFilm(film)} style={{ cursor: 'pointer' }}>
 
             <img src={film.image} alt={film.filmName}></img>
             <div className="filmName">
@@ -204,4 +278,6 @@ return (
         </div>
   );
 }
+
+
 //////////////

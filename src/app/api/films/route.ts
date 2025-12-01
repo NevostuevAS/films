@@ -17,11 +17,11 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { film, dateRelease, year, rating, image } = await request.json() 
+    const { filmName, dateRelease, year, rating, image } = await request.json() 
     
     const newFilm = await prisma.films.create({
       data: {
-        filmName: film,         
+        filmName: filmName,         
         dateRelease,    
         year: parseInt(year),
         rating: parseInt(rating),
