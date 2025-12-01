@@ -127,7 +127,9 @@ exports.Prisma.UserScalarFieldEnum = {
   name: 'name',
   password: 'password',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  admin: 'admin',
+  likedFilms: 'likedFilms'
 };
 
 exports.Prisma.FilmsScalarFieldEnum = {
@@ -136,7 +138,8 @@ exports.Prisma.FilmsScalarFieldEnum = {
   dateRelease: 'dateRelease',
   year: 'year',
   rating: 'rating',
-  image: 'image'
+  image: 'image',
+  description: 'description'
 };
 
 exports.Prisma.SortOrder = {

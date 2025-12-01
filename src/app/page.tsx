@@ -9,6 +9,7 @@ interface Film {
   year: number;
   rating: number;
   image?: string;
+  description: string;
 }
 
 interface User {
@@ -16,6 +17,7 @@ interface User {
   login: string;
   name: string;
   createdAt: string;
+  admin: boolean;
 }
 
 export default function Home() {
@@ -29,6 +31,7 @@ export default function Home() {
   name: string; 
   login: string;
   createdAt: string;
+  admin: boolean;
   } | null>(null);
   const [films, setFilms] = useState<Film[]>([]);
   const [loading, setLoading] = useState(true);
@@ -38,8 +41,24 @@ export default function Home() {
   const [userCount, setUserCount] = useState<number | null>(null);
   const [loadingCount, setLoadingCount] = useState(false);
   const [selectedFilm, setSelectedFilm] = useState<Film | null>(null);
+  const [filmsCount, setFilmsCount] = useState<number>(0);
+  const [loadingFilmsCount, setLoadingFilmsCount] = useState(false)
 
- 
+ const loadFilmsCount = async () => {
+  try {
+    setLoadingFilmsCount(true);
+    const response = await fetch('/api/films/count');
+    
+    if (response.ok) {
+      const data = await response.json();
+      setFilmsCount(data.count);
+    }
+  } catch (error) {
+    console.error('Ошибка загрузки количества фильмов:', error);
+  } finally {
+    setLoadingFilmsCount(false);
+  }
+};
 
   const loadUserCount = async () => { ///////Счетчик зарег. пользователей
   try {
@@ -59,6 +78,7 @@ export default function Home() {
 
 useEffect(() => {
   loadUserCount();
+  loadFilmsCount(); 
 }, []);
 
 
@@ -114,6 +134,7 @@ useEffect(() => {
         id: result.user.id,
         name: result.user.name,
         login: result.user.login,
+        admin: result.user.admin,
         createdAt: result.user.createdAt  // ← сохраняем дату
         })); ///Сохраняем пользователя
         // Очищаем форму
@@ -182,7 +203,22 @@ useEffect(() => {
       </div>
     );
  }
- //////Личный кабинет
+ //////администратор панель
+ if(lk && AuthUser?.admin) {
+  return (
+      <div>
+      <div className="header">
+      <h1>Панель управления</h1>
+      <button className="back" onClick={() => setlk(false)}>Назад</button>
+          </div>
+          <div>
+          <h1 className="stathead">Статистика сайта</h1>
+          <h1>Всего фильмов в базе данных: {filmsCount}</h1>
+          <h1>Зарегистрировано пользователей: {userCount}</h1>
+      </div>
+      </div>
+  );
+ }
  if(lk && AuthUser) {
   return (
       <div>
@@ -203,8 +239,51 @@ useEffect(() => {
       </div>
   );
  }
- 
- 
+ if (selectedFilm) {
+  return (
+    <div>
+      <div className="header">
+        <h1>Информация о фильме</h1>
+        <button className="back" onClick={() => setSelectedFilm(null)}>
+          Назад к списку
+        </button>
+      </div>
+      <div className="film-detail-page">
+        <img src={selectedFilm.image} alt={selectedFilm.filmName} />
+        <h1>{selectedFilm.filmName}</h1>
+        <h3>Дата выхода: {selectedFilm.year} год</h3>
+        <h3>Рейтинг: {selectedFilm.rating}/10</h3>
+        <p className="description">{selectedFilm.description}</p>
+      </div>
+    </div>
+  );
+}
+ if (AuthUser?.admin) { ////////Пользователь авторизован как администратор
+  return (
+    <div>
+      <div className="header">
+      <h1>Фильмы онлайн</h1>
+    <button className="auth" onClick={() => {
+      setAuthUser(null)
+    localStorage.removeItem('user');  
+    }
+      }>Выйти</button>
+    <button className="auth" onClick={() => setlk(true)}>{AuthUser.name} - Вы администратор</button>
+    </div>
+        {loading && <p>Загрузка фильмов...</p>}
+        {error && <p>Ошибка: {error}</p>}
+        {films.map(film => (
+          <div className="films" key={film.id} onClick={() => setSelectedFilm(film)} style={{ cursor: 'pointer' }}>
+            <img src={film.image} alt={film.filmName}></img>
+            <div className="filmName">
+              <h3>{film.filmName}</h3>
+              <h3>Дата выхода: {film.year} год</h3>
+              </div>
+          </div>
+        ))}
+        </div>
+  );
+ }
  if (AuthUser) {
     return (
       <div>
@@ -217,11 +296,10 @@ useEffect(() => {
       }>Выйти</button>
     <button className="auth" onClick={() => setlk(true)}>{AuthUser.name}</button>
     </div>
-       {loading && <p>Загрузка фильмов...</p>}
+        {loading && <p>Загрузка фильмов...</p>}
         {error && <p>Ошибка: {error}</p>}
         {films.map(film => (
-          <div className="films" key={film.id}>
-
+          <div className="films" key={film.id} onClick={() => setSelectedFilm(film)} style={{ cursor: 'pointer' }}>
             <img src={film.image} alt={film.filmName}></img>
             <div className="filmName">
               <h3>{film.filmName}</h3>
@@ -230,26 +308,6 @@ useEffect(() => {
           </div>
         ))}
         </div>
-  );
-}
-if (selectedFilm) {
-  return (
-    <div>
-      <div className="header">
-        <h1>Информация о фильме</h1>
-        <button className="back" onClick={() => setSelectedFilm(null)}>
-          Назад к списку
-        </button>
-      </div>
-      
-      <div className="film-detail-page">
-        <img src={selectedFilm.image} alt={selectedFilm.filmName} />
-        <h1>{selectedFilm.filmName}</h1>
-        <h3>Дата выхода: {selectedFilm.year} год</h3>
-        <h3>Рейтинг: {selectedFilm.rating}/10</h3>
-        <p>Дата релиза: {selectedFilm.dateRelease}</p>
-      </div>
-    </div>
   );
 }
 ///////////////////////////////
@@ -267,7 +325,6 @@ return (
         {error && <p>Ошибка: {error}</p>}
         {films.map(film => (
           <div className="films" key={film.id} onClick={() => setSelectedFilm(film)} style={{ cursor: 'pointer' }}>
-
             <img src={film.image} alt={film.filmName}></img>
             <div className="filmName">
               <h3>{film.filmName}</h3>

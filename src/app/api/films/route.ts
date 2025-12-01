@@ -17,7 +17,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { filmName, dateRelease, year, rating, image } = await request.json() 
+    const { filmName, dateRelease, year, rating, image, description } = await request.json() 
     
     const newFilm = await prisma.films.create({
       data: {
@@ -25,7 +25,8 @@ export async function POST(request: Request) {
         dateRelease,    
         year: parseInt(year),
         rating: parseInt(rating),
-        image: image || null
+        image: image || null,
+        description: description || "Нет описания"
       }
     })
     

@@ -40,7 +40,8 @@ export async function POST(request: Request) {
         id: user.id,
         login: user.login,
         name: user.name,
-        createdAt: user.createdAt
+        createdAt: user.createdAt,
+        admin: user.admin
       }
     })
     

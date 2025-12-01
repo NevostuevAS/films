@@ -6,18 +6,24 @@
 }
 /* Простые и стильные стили */
 body {
-  background: linear-gradient(135deg, #273c5a 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #273c5a 0%, #7587a4 100%);
   min-height: 100vh;
   margin: 0;
   padding: 20px;
 }
-.lkh3 {}
+.stathead{
+  color: #c3cfe2;
+}
 .lkinfo{
   font-size: 20px;
 }
+.description{
+  color: #000000;
+  font-weight: bold;
+}
 img{
   height: 200px;
-  width: 150px;
+  width: 135px;
   object-fit: cover; 
 }
 .films{
@@ -26,7 +32,7 @@ img{
   border-radius: 3px;
   margin-top: 30px;
   gap: 30px;
-  width: 300px;
+  width: 350px;
 
 }
 .filmName{

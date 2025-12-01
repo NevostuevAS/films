@@ -969,6 +969,7 @@ export namespace Prisma {
     password: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    admin: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -978,6 +979,7 @@ export namespace Prisma {
     password: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    admin: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -987,6 +989,8 @@ export namespace Prisma {
     password: number
     createdAt: number
     updatedAt: number
+    admin: number
+    likedFilms: number
     _all: number
   }
 
@@ -998,6 +1002,7 @@ export namespace Prisma {
     password?: true
     createdAt?: true
     updatedAt?: true
+    admin?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1007,6 +1012,7 @@ export namespace Prisma {
     password?: true
     createdAt?: true
     updatedAt?: true
+    admin?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1016,6 +1022,8 @@ export namespace Prisma {
     password?: true
     createdAt?: true
     updatedAt?: true
+    admin?: true
+    likedFilms?: true
     _all?: true
   }
 
@@ -1098,6 +1106,8 @@ export namespace Prisma {
     password: string
     createdAt: Date
     updatedAt: Date
+    admin: boolean
+    likedFilms: string[]
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1124,6 +1134,8 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    admin?: boolean
+    likedFilms?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1133,6 +1145,8 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    admin?: boolean
+    likedFilms?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1142,6 +1156,8 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    admin?: boolean
+    likedFilms?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1151,9 +1167,11 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    admin?: boolean
+    likedFilms?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "login" | "name" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "login" | "name" | "password" | "createdAt" | "updatedAt" | "admin" | "likedFilms", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -1165,6 +1183,8 @@ export namespace Prisma {
       password: string
       createdAt: Date
       updatedAt: Date
+      admin: boolean
+      likedFilms: string[]
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1594,6 +1614,8 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly admin: FieldRef<"User", 'Boolean'>
+    readonly likedFilms: FieldRef<"User", 'String[]'>
   }
     
 
@@ -1989,6 +2011,7 @@ export namespace Prisma {
     year: number | null
     rating: number | null
     image: string | null
+    description: string | null
   }
 
   export type FilmsMaxAggregateOutputType = {
@@ -1998,6 +2021,7 @@ export namespace Prisma {
     year: number | null
     rating: number | null
     image: string | null
+    description: string | null
   }
 
   export type FilmsCountAggregateOutputType = {
@@ -2007,6 +2031,7 @@ export namespace Prisma {
     year: number
     rating: number
     image: number
+    description: number
     _all: number
   }
 
@@ -2028,6 +2053,7 @@ export namespace Prisma {
     year?: true
     rating?: true
     image?: true
+    description?: true
   }
 
   export type FilmsMaxAggregateInputType = {
@@ -2037,6 +2063,7 @@ export namespace Prisma {
     year?: true
     rating?: true
     image?: true
+    description?: true
   }
 
   export type FilmsCountAggregateInputType = {
@@ -2046,6 +2073,7 @@ export namespace Prisma {
     year?: true
     rating?: true
     image?: true
+    description?: true
     _all?: true
   }
 
@@ -2142,6 +2170,7 @@ export namespace Prisma {
     year: number
     rating: number
     image: string | null
+    description: string | null
     _count: FilmsCountAggregateOutputType | null
     _avg: FilmsAvgAggregateOutputType | null
     _sum: FilmsSumAggregateOutputType | null
@@ -2170,6 +2199,7 @@ export namespace Prisma {
     year?: boolean
     rating?: boolean
     image?: boolean
+    description?: boolean
   }, ExtArgs["result"]["films"]>
 
   export type FilmsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2179,6 +2209,7 @@ export namespace Prisma {
     year?: boolean
     rating?: boolean
     image?: boolean
+    description?: boolean
   }, ExtArgs["result"]["films"]>
 
   export type FilmsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2188,6 +2219,7 @@ export namespace Prisma {
     year?: boolean
     rating?: boolean
     image?: boolean
+    description?: boolean
   }, ExtArgs["result"]["films"]>
 
   export type FilmsSelectScalar = {
@@ -2197,9 +2229,10 @@ export namespace Prisma {
     year?: boolean
     rating?: boolean
     image?: boolean
+    description?: boolean
   }
 
-  export type FilmsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "filmName" | "dateRelease" | "year" | "rating" | "image", ExtArgs["result"]["films"]>
+  export type FilmsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "filmName" | "dateRelease" | "year" | "rating" | "image" | "description", ExtArgs["result"]["films"]>
 
   export type $FilmsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Films"
@@ -2211,6 +2244,7 @@ export namespace Prisma {
       year: number
       rating: number
       image: string | null
+      description: string | null
     }, ExtArgs["result"]["films"]>
     composites: {}
   }
@@ -2638,8 +2672,9 @@ export namespace Prisma {
     readonly filmName: FieldRef<"Films", 'String'>
     readonly dateRelease: FieldRef<"Films", 'String'>
     readonly year: FieldRef<"Films", 'Int'>
-    readonly rating: FieldRef<"Films", 'Int'>
+    readonly rating: FieldRef<"Films", 'Float'>
     readonly image: FieldRef<"Films", 'String'>
+    readonly description: FieldRef<"Films", 'String'>
   }
     
 
@@ -3026,7 +3061,9 @@ export namespace Prisma {
     name: 'name',
     password: 'password',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    admin: 'admin',
+    likedFilms: 'likedFilms'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -3038,7 +3075,8 @@ export namespace Prisma {
     dateRelease: 'dateRelease',
     year: 'year',
     rating: 'rating',
-    image: 'image'
+    image: 'image',
+    description: 'description'
   };
 
   export type FilmsScalarFieldEnum = (typeof FilmsScalarFieldEnum)[keyof typeof FilmsScalarFieldEnum]
@@ -3102,6 +3140,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -3142,6 +3187,8 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    admin?: BoolFilter<"User"> | boolean
+    likedFilms?: StringNullableListFilter<"User">
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3151,6 +3198,8 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    admin?: SortOrder
+    likedFilms?: SortOrder
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3163,6 +3212,8 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    admin?: BoolFilter<"User"> | boolean
+    likedFilms?: StringNullableListFilter<"User">
   }, "id" | "login">
 
   export type UserOrderByWithAggregationInput = {
@@ -3172,6 +3223,8 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    admin?: SortOrder
+    likedFilms?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -3187,6 +3240,8 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    admin?: BoolWithAggregatesFilter<"User"> | boolean
+    likedFilms?: StringNullableListFilter<"User">
   }
 
   export type FilmsWhereInput = {
@@ -3197,8 +3252,9 @@ export namespace Prisma {
     filmName?: StringFilter<"Films"> | string
     dateRelease?: StringFilter<"Films"> | string
     year?: IntFilter<"Films"> | number
-    rating?: IntFilter<"Films"> | number
+    rating?: FloatFilter<"Films"> | number
     image?: StringNullableFilter<"Films"> | string | null
+    description?: StringNullableFilter<"Films"> | string | null
   }
 
   export type FilmsOrderByWithRelationInput = {
@@ -3208,6 +3264,7 @@ export namespace Prisma {
     year?: SortOrder
     rating?: SortOrder
     image?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
   }
 
   export type FilmsWhereUniqueInput = Prisma.AtLeast<{
@@ -3218,8 +3275,9 @@ export namespace Prisma {
     NOT?: FilmsWhereInput | FilmsWhereInput[]
     dateRelease?: StringFilter<"Films"> | string
     year?: IntFilter<"Films"> | number
-    rating?: IntFilter<"Films"> | number
+    rating?: FloatFilter<"Films"> | number
     image?: StringNullableFilter<"Films"> | string | null
+    description?: StringNullableFilter<"Films"> | string | null
   }, "id" | "filmName">
 
   export type FilmsOrderByWithAggregationInput = {
@@ -3229,6 +3287,7 @@ export namespace Prisma {
     year?: SortOrder
     rating?: SortOrder
     image?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     _count?: FilmsCountOrderByAggregateInput
     _avg?: FilmsAvgOrderByAggregateInput
     _max?: FilmsMaxOrderByAggregateInput
@@ -3244,8 +3303,9 @@ export namespace Prisma {
     filmName?: StringWithAggregatesFilter<"Films"> | string
     dateRelease?: StringWithAggregatesFilter<"Films"> | string
     year?: IntWithAggregatesFilter<"Films"> | number
-    rating?: IntWithAggregatesFilter<"Films"> | number
+    rating?: FloatWithAggregatesFilter<"Films"> | number
     image?: StringNullableWithAggregatesFilter<"Films"> | string | null
+    description?: StringNullableWithAggregatesFilter<"Films"> | string | null
   }
 
   export type UserCreateInput = {
@@ -3255,6 +3315,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    admin?: boolean
+    likedFilms?: UserCreatelikedFilmsInput | string[]
   }
 
   export type UserUncheckedCreateInput = {
@@ -3264,6 +3326,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    admin?: boolean
+    likedFilms?: UserCreatelikedFilmsInput | string[]
   }
 
   export type UserUpdateInput = {
@@ -3273,6 +3337,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    likedFilms?: UserUpdatelikedFilmsInput | string[]
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3282,6 +3348,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    likedFilms?: UserUpdatelikedFilmsInput | string[]
   }
 
   export type UserCreateManyInput = {
@@ -3291,6 +3359,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    admin?: boolean
+    likedFilms?: UserCreatelikedFilmsInput | string[]
   }
 
   export type UserUpdateManyMutationInput = {
@@ -3300,6 +3370,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    likedFilms?: UserUpdatelikedFilmsInput | string[]
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -3309,6 +3381,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    likedFilms?: UserUpdatelikedFilmsInput | string[]
   }
 
   export type FilmsCreateInput = {
@@ -3318,6 +3392,7 @@ export namespace Prisma {
     year: number
     rating: number
     image?: string | null
+    description?: string | null
   }
 
   export type FilmsUncheckedCreateInput = {
@@ -3327,6 +3402,7 @@ export namespace Prisma {
     year: number
     rating: number
     image?: string | null
+    description?: string | null
   }
 
   export type FilmsUpdateInput = {
@@ -3334,8 +3410,9 @@ export namespace Prisma {
     filmName?: StringFieldUpdateOperationsInput | string
     dateRelease?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
-    rating?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FilmsUncheckedUpdateInput = {
@@ -3343,8 +3420,9 @@ export namespace Prisma {
     filmName?: StringFieldUpdateOperationsInput | string
     dateRelease?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
-    rating?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FilmsCreateManyInput = {
@@ -3354,6 +3432,7 @@ export namespace Prisma {
     year: number
     rating: number
     image?: string | null
+    description?: string | null
   }
 
   export type FilmsUpdateManyMutationInput = {
@@ -3361,8 +3440,9 @@ export namespace Prisma {
     filmName?: StringFieldUpdateOperationsInput | string
     dateRelease?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
-    rating?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FilmsUncheckedUpdateManyInput = {
@@ -3370,8 +3450,9 @@ export namespace Prisma {
     filmName?: StringFieldUpdateOperationsInput | string
     dateRelease?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
-    rating?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3415,6 +3496,19 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -3427,6 +3521,8 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    admin?: SortOrder
+    likedFilms?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -3436,6 +3532,7 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    admin?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -3445,6 +3542,7 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    admin?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3497,6 +3595,14 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -3508,6 +3614,17 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type FilmsCountOrderByAggregateInput = {
     id?: SortOrder
     filmName?: SortOrder
@@ -3515,6 +3632,7 @@ export namespace Prisma {
     year?: SortOrder
     rating?: SortOrder
     image?: SortOrder
+    description?: SortOrder
   }
 
   export type FilmsAvgOrderByAggregateInput = {
@@ -3529,6 +3647,7 @@ export namespace Prisma {
     year?: SortOrder
     rating?: SortOrder
     image?: SortOrder
+    description?: SortOrder
   }
 
   export type FilmsMinOrderByAggregateInput = {
@@ -3538,6 +3657,7 @@ export namespace Prisma {
     year?: SortOrder
     rating?: SortOrder
     image?: SortOrder
+    description?: SortOrder
   }
 
   export type FilmsSumOrderByAggregateInput = {
@@ -3561,6 +3681,26 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type UserCreatelikedFilmsInput = {
+    set: string[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -3573,7 +3713,24 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UserUpdatelikedFilmsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
@@ -3618,6 +3775,11 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3690,6 +3852,25 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -3706,7 +3887,7 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
     notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -3714,7 +3895,12 @@ export namespace Prisma {
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
 
