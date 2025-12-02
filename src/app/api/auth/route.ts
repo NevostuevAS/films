@@ -22,6 +22,12 @@ export async function POST(request: Request) {
         error: 'Пользователь не найден' 
       }, { status: 401 })
     }
+    
+    if (user.banned) {
+      return NextResponse.json({ 
+        error: 'Аккаунт заблокирован. Обратитесь к администратору.' 
+      }, { status: 403 })
+    }
 
     if (user.password !== password) {
       console.log('❌ Неверный пароль')
@@ -41,7 +47,8 @@ export async function POST(request: Request) {
         login: user.login,
         name: user.name,
         createdAt: user.createdAt,
-        admin: user.admin
+        admin: user.admin,
+        banned: user.banned
       }
     })
     

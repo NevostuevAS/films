@@ -24,6 +24,7 @@ model User {
   updatedAt DateTime @updatedAt
   admin     Boolean  @default(false)
   likedFilms String[]
+  banned    Boolean @default(false)
 }
 
 model Films {

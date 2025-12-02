@@ -101,7 +101,8 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   admin: 'admin',
-  likedFilms: 'likedFilms'
+  likedFilms: 'likedFilms',
+  banned: 'banned'
 };
 
 exports.Prisma.FilmsScalarFieldEnum = {
@@ -182,13 +183,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below\n  // Further reading:\n  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema\n  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id         String   @id @default(cuid())\n  login      String   @unique\n  name       String?\n  password   String\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n  admin      Boolean  @default(false)\n  likedFilms String[]\n}\n\nmodel Films {\n  id          String  @id @default(cuid())\n  filmName    String  @unique\n  dateRelease String\n  year        Int\n  rating      Float\n  image       String?\n  description String?\n}\n",
-  "inlineSchemaHash": "3a14ec22364951ecc117b35c2a78ad40f730bf43f5dbe8ec3e1a7c0b2dd929fd",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below\n  // Further reading:\n  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema\n  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id         String   @id @default(cuid())\n  login      String   @unique\n  name       String?\n  password   String\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n  admin      Boolean  @default(false)\n  likedFilms String[]\n  banned     Boolean  @default(false)\n}\n\nmodel Films {\n  id          String  @id @default(cuid())\n  filmName    String  @unique\n  dateRelease String\n  year        Int\n  rating      Float\n  image       String?\n  description String?\n}\n",
+  "inlineSchemaHash": "9262274e4ab21d1254a6c9830cb7379ee1143ebf6f382519716f3fa0d64448cf",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"login\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"admin\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"likedFilms\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Films\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"filmName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dateRelease\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"year\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"rating\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"login\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"admin\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"likedFilms\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"banned\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null},\"Films\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"filmName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dateRelease\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"year\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"rating\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

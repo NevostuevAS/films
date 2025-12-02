@@ -970,6 +970,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     admin: boolean | null
+    banned: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -980,6 +981,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     admin: boolean | null
+    banned: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -991,6 +993,7 @@ export namespace Prisma {
     updatedAt: number
     admin: number
     likedFilms: number
+    banned: number
     _all: number
   }
 
@@ -1003,6 +1006,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     admin?: true
+    banned?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1013,6 +1017,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     admin?: true
+    banned?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1024,6 +1029,7 @@ export namespace Prisma {
     updatedAt?: true
     admin?: true
     likedFilms?: true
+    banned?: true
     _all?: true
   }
 
@@ -1108,6 +1114,7 @@ export namespace Prisma {
     updatedAt: Date
     admin: boolean
     likedFilms: string[]
+    banned: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1136,6 +1143,7 @@ export namespace Prisma {
     updatedAt?: boolean
     admin?: boolean
     likedFilms?: boolean
+    banned?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1147,6 +1155,7 @@ export namespace Prisma {
     updatedAt?: boolean
     admin?: boolean
     likedFilms?: boolean
+    banned?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1158,6 +1167,7 @@ export namespace Prisma {
     updatedAt?: boolean
     admin?: boolean
     likedFilms?: boolean
+    banned?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1169,9 +1179,10 @@ export namespace Prisma {
     updatedAt?: boolean
     admin?: boolean
     likedFilms?: boolean
+    banned?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "login" | "name" | "password" | "createdAt" | "updatedAt" | "admin" | "likedFilms", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "login" | "name" | "password" | "createdAt" | "updatedAt" | "admin" | "likedFilms" | "banned", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -1185,6 +1196,7 @@ export namespace Prisma {
       updatedAt: Date
       admin: boolean
       likedFilms: string[]
+      banned: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1616,6 +1628,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly admin: FieldRef<"User", 'Boolean'>
     readonly likedFilms: FieldRef<"User", 'String[]'>
+    readonly banned: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -3063,7 +3076,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     admin: 'admin',
-    likedFilms: 'likedFilms'
+    likedFilms: 'likedFilms',
+    banned: 'banned'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -3189,6 +3203,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     admin?: BoolFilter<"User"> | boolean
     likedFilms?: StringNullableListFilter<"User">
+    banned?: BoolFilter<"User"> | boolean
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3200,6 +3215,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     admin?: SortOrder
     likedFilms?: SortOrder
+    banned?: SortOrder
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3214,6 +3230,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     admin?: BoolFilter<"User"> | boolean
     likedFilms?: StringNullableListFilter<"User">
+    banned?: BoolFilter<"User"> | boolean
   }, "id" | "login">
 
   export type UserOrderByWithAggregationInput = {
@@ -3225,6 +3242,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     admin?: SortOrder
     likedFilms?: SortOrder
+    banned?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -3242,6 +3260,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     admin?: BoolWithAggregatesFilter<"User"> | boolean
     likedFilms?: StringNullableListFilter<"User">
+    banned?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type FilmsWhereInput = {
@@ -3317,6 +3336,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     admin?: boolean
     likedFilms?: UserCreatelikedFilmsInput | string[]
+    banned?: boolean
   }
 
   export type UserUncheckedCreateInput = {
@@ -3328,6 +3348,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     admin?: boolean
     likedFilms?: UserCreatelikedFilmsInput | string[]
+    banned?: boolean
   }
 
   export type UserUpdateInput = {
@@ -3339,6 +3360,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     admin?: BoolFieldUpdateOperationsInput | boolean
     likedFilms?: UserUpdatelikedFilmsInput | string[]
+    banned?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3350,6 +3372,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     admin?: BoolFieldUpdateOperationsInput | boolean
     likedFilms?: UserUpdatelikedFilmsInput | string[]
+    banned?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserCreateManyInput = {
@@ -3361,6 +3384,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     admin?: boolean
     likedFilms?: UserCreatelikedFilmsInput | string[]
+    banned?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -3372,6 +3396,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     admin?: BoolFieldUpdateOperationsInput | boolean
     likedFilms?: UserUpdatelikedFilmsInput | string[]
+    banned?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -3383,6 +3408,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     admin?: BoolFieldUpdateOperationsInput | boolean
     likedFilms?: UserUpdatelikedFilmsInput | string[]
+    banned?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FilmsCreateInput = {
@@ -3523,6 +3549,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     admin?: SortOrder
     likedFilms?: SortOrder
+    banned?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -3533,6 +3560,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     admin?: SortOrder
+    banned?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -3543,6 +3571,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     admin?: SortOrder
+    banned?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {

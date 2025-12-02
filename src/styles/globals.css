@@ -4,7 +4,12 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-/* Простые и стильные стили */
+.fav-btn.add{
+  color: rgb(179, 210, 245);
+}
+.fav-btn.remove{
+  color: rgb(185, 138, 105);
+}
 body {
   background: linear-gradient(135deg, #273c5a 0%, #7587a4 100%);
   min-height: 100vh;

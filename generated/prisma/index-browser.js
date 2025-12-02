@@ -129,7 +129,8 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   admin: 'admin',
-  likedFilms: 'likedFilms'
+  likedFilms: 'likedFilms',
+  banned: 'banned'
 };
 
 exports.Prisma.FilmsScalarFieldEnum = {

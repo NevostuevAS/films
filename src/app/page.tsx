@@ -20,7 +20,10 @@ interface User {
   admin: boolean;
 }
 
+
 export default function Home() {
+  const [likedFilms, setLikedFilms] = useState<string[]>([]); // ID избранных фильмов
+  const [favoriteFilms, setFavoriteFilms] = useState<Film[]>([]); // Объекты избранных фильмов
   const [isSignUp, setIsSignUp] = useState(false);
   const [isAuth, setisAuth] = useState(false);
   const [login, setLogin] = useState('');
@@ -44,10 +47,76 @@ export default function Home() {
   const [filmsCount, setFilmsCount] = useState<number>(0);
   const [loadingFilmsCount, setLoadingFilmsCount] = useState(false)
 
+  // Загрузить избранные фильмы пользователя
+const loadFavoriteFilms = async () => {
+  if (!AuthUser) return;
+  
+  try {
+    // 1. Получаем ID избранных фильмов
+    const response = await fetch(`/api//favorites?userId=${AuthUser.id}`);
+    const data = await response.json();
+    setLikedFilms(data.likedFilms || []);
+    
+    // 2. Получаем полные данные об избранных фильмах
+    const favoriteFilmsData = films.filter(film => 
+      data.likedFilms?.includes(film.id)
+    );
+    setFavoriteFilms(favoriteFilmsData);
+    
+  } catch (error) {
+    console.error('Ошибка загрузки избранных фильмов:', error);
+  }
+};
+
+// Добавить/удалить из избранного
+const toggleFavorite = async (filmId: string) => {
+  if (!AuthUser) {
+    alert('Войдите в аккаунт чтобы добавлять в избранное');
+    return;
+  }
+  
+  const isLiked = likedFilms.includes(filmId);
+  const action = isLiked ? 'remove' : 'add';
+  
+  try {
+    const response = await fetch('/api/favorites', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userId: AuthUser.id,
+        filmId: filmId,
+        action: action
+      })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      // Обновляем локальное состояние
+      setLikedFilms(data.likedFilms);
+      
+      // Обновляем список избранных фильмов
+      if (action === 'add') {
+        const filmToAdd = films.find(f => f.id === filmId);
+        if (filmToAdd) {
+          setFavoriteFilms(prev => [...prev, filmToAdd]);
+        }
+      } else {
+        setFavoriteFilms(prev => prev.filter(f => f.id !== filmId));
+      }
+      
+      alert(data.message);
+    }
+    
+  } catch (error) {
+    alert('Ошибка при обновлении избранного');
+  }
+};
+
  const loadFilmsCount = async () => {
   try {
     setLoadingFilmsCount(true);
-    const response = await fetch('/api/films/count');
+    const response = await fetch('/api/films?count=true');
     
     if (response.ok) {
       const data = await response.json();
@@ -79,8 +148,10 @@ export default function Home() {
 useEffect(() => {
   loadUserCount();
   loadFilmsCount(); 
-}, []);
-
+  if (AuthUser && films.length > 0) {
+    loadFavoriteFilms();
+  }
+}, [AuthUser, films]);
 
   useEffect(() => {
   const loadFilms = async () => {
@@ -304,6 +375,7 @@ useEffect(() => {
             <div className="filmName">
               <h3>{film.filmName}</h3>
               <h3>Дата выхода: {film.year} год</h3>
+              <button className={`fav-btn ${likedFilms.includes(film.id) ? 'remove' : 'add'}`} onClick={(e) => { e.stopPropagation(); toggleFavorite(film.id)}}> {likedFilms.includes(film.id) ? 'Удалить из избранного' : 'Добавить в избранное'}</button>
               </div>
           </div>
         ))}
