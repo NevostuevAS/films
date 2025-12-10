@@ -8,7 +8,7 @@ export async function POST(request: Request) {
   try {
     const { login, password, name } = await request.json()
     
-    console.log('📨 Получены данные:', { login, name })
+    console.log('Получены данные:', { login, name })
     
     const user = await prisma.user.create({
       data: {
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
       },
     })
 
-    console.log('✅ Пользователь создан:', user.id)
+    console.log('Пользователь создан:', user.id)
     
     return NextResponse.json({ 
       success: true, 
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     })
     
   } catch (error: any) {
-    console.error('❌ Ошибка регистрации:', error)
+    console.error('Ошибка регистрации:', error)
     
     if (error.code === 'P2002') {
       return NextResponse.json({ 

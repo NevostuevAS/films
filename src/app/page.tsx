@@ -18,12 +18,13 @@ interface User {
   name: string;
   createdAt: string;
   admin: boolean;
+  banned: boolean;
+  likedFilms: string[];
 }
 
 
 export default function Home() {
   const [likedFilms, setLikedFilms] = useState<string[]>([]); // ID избранных фильмов
-  const [favoriteFilms, setFavoriteFilms] = useState<Film[]>([]); // Объекты избранных фильмов
   const [isSignUp, setIsSignUp] = useState(false);
   const [isAuth, setisAuth] = useState(false);
   const [login, setLogin] = useState('');
@@ -35,47 +36,40 @@ export default function Home() {
   login: string;
   createdAt: string;
   admin: boolean;
+  banned: boolean;
+  likedFilms: string[];
   } | null>(null);
   const [films, setFilms] = useState<Film[]>([]);
-  const [loading, setLoading] = useState(true);
+  
   const [error, setError] = useState<string | null>(null);
   const [lk, setlk] = useState(false);
-  const [userData, setUserData] = useState<User | null>(null);
   const [userCount, setUserCount] = useState<number | null>(null);
   const [loadingCount, setLoadingCount] = useState(false);
   const [selectedFilm, setSelectedFilm] = useState<Film | null>(null);
   const [filmsCount, setFilmsCount] = useState<number>(0);
   const [loadingFilmsCount, setLoadingFilmsCount] = useState(false)
 
-  // Загрузить избранные фильмы пользователя
+  // избранные фильмы пользователя
 const loadFavoriteFilms = async () => {
   if (!AuthUser) return;
   
   try {
-    // 1. Получаем ID избранных фильмов
-    const response = await fetch(`/api//favorites?userId=${AuthUser.id}`);
+    const response = await fetch(`/api/favorites?userId=${AuthUser.id}`);
     const data = await response.json();
     setLikedFilms(data.likedFilms || []);
-    
-    // 2. Получаем полные данные об избранных фильмах
-    const favoriteFilmsData = films.filter(film => 
-      data.likedFilms?.includes(film.id)
-    );
-    setFavoriteFilms(favoriteFilmsData);
-    
   } catch (error) {
     console.error('Ошибка загрузки избранных фильмов:', error);
   }
 };
 
-// Добавить/удалить из избранного
+
 const toggleFavorite = async (filmId: string) => {
   if (!AuthUser) {
     alert('Войдите в аккаунт чтобы добавлять в избранное');
     return;
   }
   
-  const isLiked = likedFilms.includes(filmId);
+  const isLiked = likedFilms.find(id => id === filmId);
   const action = isLiked ? 'remove' : 'add';
   
   try {
@@ -94,18 +88,6 @@ const toggleFavorite = async (filmId: string) => {
     if (data.success) {
       // Обновляем локальное состояние
       setLikedFilms(data.likedFilms);
-      
-      // Обновляем список избранных фильмов
-      if (action === 'add') {
-        const filmToAdd = films.find(f => f.id === filmId);
-        if (filmToAdd) {
-          setFavoriteFilms(prev => [...prev, filmToAdd]);
-        }
-      } else {
-        setFavoriteFilms(prev => prev.filter(f => f.id !== filmId));
-      }
-      
-      alert(data.message);
     }
     
   } catch (error) {
@@ -145,20 +127,16 @@ const toggleFavorite = async (filmId: string) => {
   }
 };
 
-useEffect(() => {
-  loadUserCount();
-  loadFilmsCount(); 
+useEffect(() => { 
   if (AuthUser && films.length > 0) {
     loadFavoriteFilms();
   }
 }, [AuthUser, films]);
 
-  useEffect(() => {
+useEffect(() => {
+  
   const loadFilms = async () => {
     try {
-      setLoading(true);
-      setError(null);
-      
       const response = await fetch('/api/films');
       
       if (!response.ok) {
@@ -171,13 +149,12 @@ useEffect(() => {
     } catch (err) {
       setError('Не удалось загрузить фильмы');
       console.error('Ошибка:', err);
-    } finally {
-      setLoading(false);
     }
   };
-
-  loadFilms();
-  }, []);
+  loadUserCount();
+  loadFilmsCount();  
+   loadFilms();
+}, []);
   
   ///////Сохранение пользователя
   useEffect(() => {
@@ -206,9 +183,8 @@ useEffect(() => {
         name: result.user.name,
         login: result.user.login,
         admin: result.user.admin,
-        createdAt: result.user.createdAt  // ← сохраняем дату
-        })); ///Сохраняем пользователя
-        // Очищаем форму
+        createdAt: result.user.createdAt  
+        })); 
         setLogin('');
         setPassword('');
         setisAuth(false);
@@ -341,7 +317,6 @@ useEffect(() => {
       }>Выйти</button>
     <button className="auth" onClick={() => setlk(true)}>{AuthUser.name} - Вы администратор</button>
     </div>
-        {loading && <p>Загрузка фильмов...</p>}
         {error && <p>Ошибка: {error}</p>}
         {films.map(film => (
           <div className="films" key={film.id} onClick={() => setSelectedFilm(film)} style={{ cursor: 'pointer' }}>
@@ -367,7 +342,6 @@ useEffect(() => {
       }>Выйти</button>
     <button className="auth" onClick={() => setlk(true)}>{AuthUser.name}</button>
     </div>
-        {loading && <p>Загрузка фильмов...</p>}
         {error && <p>Ошибка: {error}</p>}
         {films.map(film => (
           <div className="films" key={film.id} onClick={() => setSelectedFilm(film)} style={{ cursor: 'pointer' }}>
@@ -393,7 +367,6 @@ return (
       <button className="auth" onClick={() => setIsSignUp(true)}>Регистрация</button>
       <button className="auth" onClick={() => setisAuth(true)}>Авторизация</button>
       </div>
-         {loading && <p>Загрузка фильмов...</p>}
         {error && <p>Ошибка: {error}</p>}
         {films.map(film => (
           <div className="films" key={film.id} onClick={() => setSelectedFilm(film)} style={{ cursor: 'pointer' }}>

@@ -3,7 +3,7 @@ import { PrismaClient } from '../../../../generated/prisma'
 
 const prisma = new PrismaClient()
 
-// GET - получить избранные фильмы пользователя
+
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url)
@@ -29,7 +29,7 @@ export async function GET(request: Request) {
   }
 }
 
-// POST - добавить/удалить фильм из избранного
+
 export async function POST(request: Request) {
   try {
     const { userId, filmId, action } = await request.json()

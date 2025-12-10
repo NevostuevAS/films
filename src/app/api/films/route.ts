@@ -6,7 +6,6 @@ const prisma = new PrismaClient()
 export async function GET(request: Request) {
   const url = new URL(request.url)
   
-  // Если запрос: /api/films?count=true
   if (url.searchParams.get('count') === 'true') {
     const count = await prisma.films.count()
     return NextResponse.json({ 
